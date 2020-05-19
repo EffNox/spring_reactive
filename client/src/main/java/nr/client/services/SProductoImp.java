@@ -17,37 +17,37 @@ import reactor.core.publisher.Mono;
 @Service
 public class SProductoImp implements SProducto {
 
-    private @Autowired WebClient client;
+    private @Autowired WebClient.Builder client;
 
     @Override
     public Flux<Producto> findAll() {
-        return client.get().accept(APPLICATION_JSON).retrieve().bodyToFlux(Producto.class);
+        return client.build().get().accept(APPLICATION_JSON).retrieve().bodyToFlux(Producto.class);
         // .exchange().flatMapMany(rs->rs.bodyToFlux(Producto.class));
     }
 
     @Override
     public Mono<Producto> findById(String id) {
-        return client.get().uri("/{id}", Collections.singletonMap("id", id)).accept(APPLICATION_JSON).retrieve()
+        return client.build().get().uri("/{id}", Collections.singletonMap("id", id)).accept(APPLICATION_JSON).retrieve()
                 .bodyToMono(Producto.class);
         // .exchange().flatMap(rs->rs.bodyToMono(Producto.class));
     }
 
     @Override
     public Mono<Producto> save(Producto e) {
-        return client.post().accept(APPLICATION_JSON).contentType(APPLICATION_JSON)
+        return client.build().post().accept(APPLICATION_JSON).contentType(APPLICATION_JSON)
                 // .body(fromValue(e))
                 .bodyValue(e).retrieve().bodyToMono(Producto.class);
     }
 
     @Override
     public Mono<Producto> update(Producto e, String id) {
-        return client.put().uri("/{id}", Collections.singletonMap("id", id)).accept(APPLICATION_JSON)
+        return client.build().put().uri("/{id}", Collections.singletonMap("id", id)).accept(APPLICATION_JSON)
                 .contentType(APPLICATION_JSON).bodyValue(e).retrieve().bodyToMono(Producto.class);
     }
 
     @Override
     public Mono<Void> delete(String id) {
-        return client.delete().uri("/{id}", Collections.singletonMap("id", id)).retrieve().bodyToMono(Void.class);
+        return client.build().delete().uri("/{id}", Collections.singletonMap("id", id)).retrieve().bodyToMono(Void.class);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class SProductoImp implements SProducto {
             h.setContentDispositionFormData("fp", fp.filename());
         });
 
-        return client.post().uri("/upload/{id}",Collections.singletonMap("id", id)).contentType(MULTIPART_FORM_DATA)
+        return client.build().post().uri("/upload/{id}",Collections.singletonMap("id", id)).contentType(MULTIPART_FORM_DATA)
         .bodyValue(parts.build())
         .retrieve().bodyToMono(Producto.class);
     }

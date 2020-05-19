@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import nr.rest.models.documents.Categoria;
 import nr.rest.models.documents.Producto;
 import nr.rest.models.services.SProducto;
 import reactor.core.publisher.Flux;
 
+@EnableEurekaClient
 @SpringBootApplication
 public class ApiRest  implements CommandLineRunner{
 
