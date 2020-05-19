@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+    <h1 th:text="${titulo}"></h1>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Creado el</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${ productos }">
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.nombre}"></td>
+                <td th:text="${p.precio}"></td>
+                <td th:text="${p.createAt}"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+</body>
+</html>

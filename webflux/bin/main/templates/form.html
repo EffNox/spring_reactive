@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+</head>
+
+<body>
+    <h1 th:text="${titulo}"></h1>
+    <a th:href="@{/producto}">Listado de producto</a>
+
+    <form th:action="@{/producto/form}" method="POST" th:object="${producto}" enctype="multipart/form-data">
+        <!-- <input th:if="${producto.id!=null}" type="hidden" th:field="*{id}"> -->
+        <div>
+            <label for="nombre">Nombre</label>
+            <div><input type="text" th:field="*{nombre}"></div>
+        </div>
+        <div>
+            <label for="precio">Precio</label>
+            <div><input type="number" th:field="*{precio}"></div>
+        </div>
+        <div>
+            <label for="createAt">Fecha</label>
+            <div><input type="date" th:field="*{createAt}"></div>
+        </div>
+        <div>
+            <label for="categoria.id">Fecha</label>
+            <div>
+                <select th:field="*{categoria.id}">
+                    <option value="">Seleccionar</option>
+                    <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}"></option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <label for="file">Fecha</label>
+            <div><input type="file" name="file2"></div>
+        </div>
+        <div>
+            <label for=""></label>
+            <div><input th:if="${producto.id==null}" type="submit" value="Crear"></div>
+            <div><input th:if="${producto.id!=null}" type="submit" value="Editar"></div>
+        </div>
+    </form>
+
+</body>
+
+</html>

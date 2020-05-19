@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+</head>
+
+<body>
+    <div th:if="param.error!=null" th:text="${param.error}"></div>
+    <div th:if="param.success!=null" th:text="${param.success}"></div>
+    <h1 th:text="${titulo}"></h1>
+    <a th:href="@{/producto/form}">Crear producto</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Creado el</th>
+                <th>Categoria</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${ productos }">
+                <td><a th:href="@{/producto/ver/}+${p.id}" th:text="${#strings.abbreviate(p.id,10)}"></a></td>
+                <td th:text="${p.nombre}"></td>
+                <td th:text="${p.precio}"></td>
+                <td th:text="${#calendars.format(p.createAt,'dd-MM-yyy hh:mm:ss a')}"></td>
+                <td th:text="${p.categoria.nombre}"></td>
+                <td>
+                    <a th:href="@{/producto/form/}+${p.id}">Editar</a>
+                    <a th:href="@{/producto/eliminar/}+${p.id}" onclick="return confirm('Seguro que desea eliminar?');">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>
